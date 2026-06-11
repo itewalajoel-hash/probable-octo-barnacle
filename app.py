@@ -1,110 +1,126 @@
 import streamlit as st
-import datetime
 
-# --- 1. PAGE CONFIG & MODERN THEME ---
-st.set_page_config(page_title="Amani Global Hub", page_icon="🌍", layout="wide")
+# --- 1. SETTING THE PAGE ---
+st.set_page_config(page_title="Amani Global Network", page_icon="🌐", layout="wide")
 
-# Custom CSS for the "Appetite" (Miro/Modern Startup look)
+# --- 2. THE "PREMIUM" DESIGN (Custom CSS) ---
 st.markdown("""
     <style>
-    .main { background-color: #0e1117; color: white; }
-    .stButton>button { 
-        background: linear-gradient(45deg, #007bff, #00d4ff); 
-        color: white; border: none; border-radius: 10px; 
-        font-weight: bold; transition: 0.3s;
+    /* Miro/Modern Startup Style */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    
+    html, body, [class*="css"]  {
+        font-family: 'Inter', sans-serif;
+        background-color: #f4f7f9;
     }
-    .stButton>button:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(0,212,255,0.4); }
-    .opportunity-card {
-        background-color: #1a1c24; border-left: 5px solid #00d4ff;
-        padding: 20px; border-radius: 10px; margin-bottom: 20px;
+    
+    .stApp {
+        background: white;
     }
-    .global-tag {
-        background: #262730; padding: 5px 15px; border-radius: 50px;
-        font-size: 0.8rem; border: 1px solid #444;
+
+    /* Professional Card Design */
+    .card {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: 1px solid #eef2f6;
+        margin-bottom: 20px;
+    }
+
+    /* Expert Badge */
+    .expert-badge {
+        background: #e1f5fe;
+        color: #039be5;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    /* Global Student Tag */
+    .student-tag {
+        background: #f1f8e9;
+        color: #558b2f;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    /* High-end Buttons */
+    .stButton>button {
+        background: #000000;
+        color: white;
+        border-radius: 8px;
+        padding: 10px 24px;
+        border: none;
+        transition: 0.3s;
+    }
+    .stButton>button:hover {
+        background: #333333;
+        transform: translateY(-2px);
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- 2. GLOBAL BRAIN (Data) ---
-SCHOLARSHIPS = [
-    {"name": "Mastercard Foundation", "link": "https://mastercardfdn.org/all/scholars/", "tag": "All Fields"},
-    {"name": "Chevening UK", "link": "https://www.chevening.org/", "tag": "Leadership"},
-    {"name": "Rhodes Scholar", "link": "https://www.rhodeshouse.ox.ac.uk/", "tag": "Oxford"}
-]
+# --- 3. THE GLOBAL HUB INTERFACE ---
 
-# --- 3. THE APP INTERFACE ---
 def main():
-    # --- HEADER ---
-    st.title("🌍 Amani Global Student Hub")
-    st.markdown("### *Where African Excellence Meets Global Opportunity*")
-    
-    tab1, tab2, tab3 = st.tabs(["🚀 Profile Architect", "💬 Global Community", "🎓 Opportunities"])
+    # --- HEADER SECTION ---
+    col_h1, col_h2 = st.columns([2, 1])
+    with col_h1:
+        st.title("Amani Global Hub")
+        st.markdown("##### Connecting African Ambition with Global Expertise.")
+    with col_h2:
+        st.write("")
+        st.markdown("<div style='text-align: right;'><span class='expert-badge'>LIVE: 1,240 Online</span></div>", unsafe_allow_html=True)
 
-    # --- TAB 1: AI ARCHITECT (Claude-Style Analysis) ---
-    with tab1:
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            st.markdown("#### Analyze your Profile")
-            name = st.text_input("Full Name")
-            field = st.selectbox("Your Vision", ["Medicine", "Engineering", "Law", "Tech", "Arts", "Business"])
-            bio = st.text_area("Describe your impact (What have you built or led?)", height=150)
-            
-            if st.button("Generate My Roadmap"):
-                st.balloons()
-                score = 50 + (len(bio.split()) // 2)
-                st.session_state['score'] = min(score, 100)
+    st.markdown("---")
+
+    # --- TOP NAVIGATION ---
+    tab_feed, tab_experts, tab_analyze = st.tabs(["🌎 Global Feed", "🎓 Expert Advice", "🧬 Profile Analyzer"])
+
+    with tab_feed:
+        st.subheader("Community Discussions")
         
-        with col2:
-            if 'score' in st.session_state:
-                st.markdown(f"### Score: {st.session_state['score']}%")
-                st.progress(st.session_state['score'] / 100)
-                st.markdown(f"""
-                <div class='opportunity-card'>
-                    <h4>🎯 Outstanding Move for {field}</h4>
-                    <p>Stop waiting for permission. Start a local chapter of <b>'{field} for Africa'</b> in your city.</p>
-                    <p><i>Recommendation:</i> Use LinkedIn to find 3 professors in {field} today.</p>
-                </div>
-                """, unsafe_allow_html=True)
+        # Post a message (UI Only for now)
+        with st.container():
+            st.markdown("<div class='card'>", unsafe_allow_html=True)
+            t_col1, t_col2 = st.columns([0.1, 0.9])
+            t_col1.image("https://ui-avatars.com/api/?name=You&background=random", width=50)
+            t_col2.text_input("Share an opportunity or ask a global question...", key="main_input")
+            st.markdown("</div>", unsafe_allow_html=True)
 
-    # --- TAB 2: GLOBAL COMMUNITY (Talk around the world) ---
-    with tab2:
-        st.header("💬 Global Student Message Board")
-        st.write("Share your dream and connect with students globally.")
-        
-        with st.expander("➕ Post a Message to the World"):
-            msg_name = st.text_input("Name", key="msg_name")
-            msg_country = st.selectbox("Country", ["Nigeria", "Kenya", "Ghana", "Uganda", "Rwanda", "Other"], key="msg_country")
-            msg_text = st.text_area("Your Dream/Message")
-            if st.button("Post Message"):
-                st.success("Your message is live! (In this demo, it shows below)")
-
-        # Mock Global Feed
-        st.markdown("---")
+        # MOCK GLOBAL POSTS
         posts = [
-            {"name": "Kofi", "country": "Ghana", "msg": "Building a solar irrigation system in Kumasi! Looking for partners."},
-            {"name": "Amara", "country": "Nigeria", "msg": "Applying for Law in the UK. Any tips on the personal statement?"},
-            {"name": "Samuel", "country": "Kenya", "msg": "Medical student passionate about Tele-medicine in rural areas."}
+            {"name": "Dr. Sarah Miller", "loc": "London, UK", "type": "EXPERT", "msg": "To all the engineering students in Kenya: The Dyson Fellowship is now open for African residents. Don't forget to focus on sustainability in your application!"},
+            {"name": "Emmanuel Tunde", "loc": "Lagos, Nigeria", "type": "STUDENT", "msg": "I just finished my first Python project for a local hospital! How do I show this to international recruiters?"},
+            {"name": "Prof. Karl Heinz", "loc": "Berlin, Germany", "type": "EXPERT", "msg": "For Law students in Ghana and Uganda: We are looking for 5 research assistants for the African Policy Review. Apply via DM."}
         ]
-        
+
         for p in posts:
+            badge = "expert-badge" if p['type'] == "EXPERT" else "student-tag"
             st.markdown(f"""
-            <div class='opportunity-card'>
-                <b>{p['name']}</b> from <span class='global-tag'>{p['country']}</span> says:
-                <p style='margin-top:10px;'>"{p['msg']}"</p>
+            <div class='card'>
+                <span class='{badge}'>{p['type']}</span>
+                <p style='margin-top:10px;'><b>{p['name']}</b> • {p['loc']}</p>
+                <p style='color: #444;'>{p['msg']}</p>
+                <hr style='border: 0.5px solid #eee;'>
+                <small style='color: #888;'>💬 12 Comments • ❤️ 45 Likes</small>
             </div>
             """, unsafe_allow_html=True)
 
-    # --- TAB 3: OPPORTUNITIES ---
-    with tab3:
-        st.header("💰 World-Class Scholarships")
-        for s in SCHOLARSHIPS:
-            st.markdown(f"""
-            <div class='opportunity-card'>
-                <h4>{s['name']}</h4>
-                <span class='global-tag'>{s['tag']}</span><br><br>
-                <a href='{s['link']}' target='_blank'><button style='padding:5px 15px; border-radius:5px; border:none; background:#00d4ff; color:black; font-weight:bold; cursor:pointer;'>Apply Now</button></a>
-            </div>
-            """, unsafe_allow_html=True)
-
-if __name__ == "__main__":
-    main()
+    with tab_experts:
+        st.subheader("International Mentors")
+        st.write("Talk to professionals from Europe, USA, and Asia who want to help African youth.")
+        
+        e_col1, e_col2 = st.columns(2)
+        with e_col1:
+            st.markdown("""
+            <div class='card'>
+                <h4>Dr. John Peterson</h4>
+                <p><i>Senior Engineer at Google, California</i></p>
+                <p>Expertise: Software Architecture, AI, Career Growth.</p>
+                <button style='width:100%; padding:10px; border-radius:5px; border:1px solid #000; backgrou
