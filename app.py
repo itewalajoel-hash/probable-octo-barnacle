@@ -1,126 +1,83 @@
 import streamlit as st
 
-# --- 1. SETTING THE PAGE ---
-st.set_page_config(page_title="Amani Global Network", page_icon="🌐", layout="wide")
+# --- 1. PAGE SETUP ---
+st.set_page_config(page_title="Amani Global", layout="wide")
 
-# --- 2. THE "PREMIUM" DESIGN (Custom CSS) ---
-st.markdown("""
-    <style>
-    /* Miro/Modern Startup Style */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-    
-    html, body, [class*="css"]  {
-        font-family: 'Inter', sans-serif;
-        background-color: #f4f7f9;
-    }
-    
-    .stApp {
-        background: white;
-    }
-
-    /* Professional Card Design */
-    .card {
-        background: #ffffff;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        border: 1px solid #eef2f6;
-        margin-bottom: 20px;
-    }
-
-    /* Expert Badge */
-    .expert-badge {
-        background: #e1f5fe;
-        color: #039be5;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    /* Global Student Tag */
-    .student-tag {
-        background: #f1f8e9;
-        color: #558b2f;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-    }
-
-    /* High-end Buttons */
-    .stButton>button {
-        background: #000000;
-        color: white;
-        border-radius: 8px;
-        padding: 10px 24px;
-        border: none;
-        transition: 0.3s;
-    }
-    .stButton>button:hover {
-        background: #333333;
-        transform: translateY(-2px);
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-# --- 3. THE GLOBAL HUB INTERFACE ---
+# --- 2. THE DESIGN (Miro-Style Clean White) ---
+st.markdown("<style>div.block-container{padding-top:2rem;} .stButton>button{width:100%; background-color:black; color:white; border-radius:10px;}</style>", unsafe_allow_html=True)
 
 def main():
-    # --- HEADER SECTION ---
-    col_h1, col_h2 = st.columns([2, 1])
-    with col_h1:
-        st.title("Amani Global Hub")
-        st.markdown("##### Connecting African Ambition with Global Expertise.")
-    with col_h2:
-        st.write("")
-        st.markdown("<div style='text-align: right;'><span class='expert-badge'>LIVE: 1,240 Online</span></div>", unsafe_allow_html=True)
-
+    # --- HEADER ---
+    st.title("🌐 Amani Global Hub")
+    st.write("Connecting African Students with International Experts & Opportunities.")
     st.markdown("---")
 
-    # --- TOP NAVIGATION ---
-    tab_feed, tab_experts, tab_analyze = st.tabs(["🌎 Global Feed", "🎓 Expert Advice", "🧬 Profile Analyzer"])
+    # --- NAVIGATION TABS ---
+    tab1, tab2, tab3 = st.tabs(["🌎 Global Community Feed", "🧬 Profile AI Analyzer", "🎓 International Experts"])
 
-    with tab_feed:
-        st.subheader("Community Discussions")
+    # --- TAB 1: GLOBAL FEED (The 'Miro/Social' Feel) ---
+    with tab1:
+        st.subheader("Global Discussion Board")
+        st.info("Experts from UK, USA, and Germany are active here.")
         
-        # Post a message (UI Only for now)
-        with st.container():
-            st.markdown("<div class='card'>", unsafe_allow_html=True)
-            t_col1, t_col2 = st.columns([0.1, 0.9])
-            t_col1.image("https://ui-avatars.com/api/?name=You&background=random", width=50)
-            t_col2.text_input("Share an opportunity or ask a global question...", key="main_input")
-            st.markdown("</div>", unsafe_allow_html=True)
+        # Post area
+        with st.expander("Write a message to the Global Community"):
+            u_name = st.text_input("Name")
+            u_msg = st.text_area("What is your question or opportunity?")
+            if st.button("Post to Global Feed"):
+                st.success("Message sent to the network!")
 
-        # MOCK GLOBAL POSTS
-        posts = [
-            {"name": "Dr. Sarah Miller", "loc": "London, UK", "type": "EXPERT", "msg": "To all the engineering students in Kenya: The Dyson Fellowship is now open for African residents. Don't forget to focus on sustainability in your application!"},
-            {"name": "Emmanuel Tunde", "loc": "Lagos, Nigeria", "type": "STUDENT", "msg": "I just finished my first Python project for a local hospital! How do I show this to international recruiters?"},
-            {"name": "Prof. Karl Heinz", "loc": "Berlin, Germany", "type": "EXPERT", "msg": "For Law students in Ghana and Uganda: We are looking for 5 research assistants for the African Policy Review. Apply via DM."}
-        ]
-
-        for p in posts:
-            badge = "expert-badge" if p['type'] == "EXPERT" else "student-tag"
-            st.markdown(f"""
-            <div class='card'>
-                <span class='{badge}'>{p['type']}</span>
-                <p style='margin-top:10px;'><b>{p['name']}</b> • {p['loc']}</p>
-                <p style='color: #444;'>{p['msg']}</p>
-                <hr style='border: 0.5px solid #eee;'>
-                <small style='color: #888;'>💬 12 Comments • ❤️ 45 Likes</small>
-            </div>
-            """, unsafe_allow_html=True)
-
-    with tab_experts:
-        st.subheader("International Mentors")
-        st.write("Talk to professionals from Europe, USA, and Asia who want to help African youth.")
+        # Mock Posts (African Students + Global Experts)
+        st.write("---")
         
-        e_col1, e_col2 = st.columns(2)
-        with e_col1:
-            st.markdown("""
-            <div class='card'>
-                <h4>Dr. John Peterson</h4>
-                <p><i>Senior Engineer at Google, California</i></p>
-                <p>Expertise: Software Architecture, AI, Career Growth.</p>
-                <button style='width:100%; padding:10px; border-radius:5px; border:1px solid #000; backgrou
+        # Post 1 (Expert)
+        st.markdown("🔹 **Dr. Linda Smith (Oxford University, UK)**")
+        st.write("For my Medicine students in Nigeria and Kenya: The 2025 Health Research Grant is now open. Focus your bio on 'Community Impact' to stand out.")
+        st.caption("💬 24 Comments | ❤️ 89 Likes")
+        st.write("---")
+
+        # Post 2 (Student)
+        st.markdown("🔸 **Kofi Mensah (Engineering Student, Ghana)**")
+        st.write("I am building a solar-powered irrigation pump. Can any international engineers advise on the best battery type for high-heat environments?")
+        st.caption("💬 12 Comments | ❤️ 34 Likes")
+        st.write("---")
+
+        # Post 3 (Expert)
+        st.markdown("🔹 **Prof. Hans Müller (Berlin, Germany)**")
+        st.write("Law students: We are looking for interns who understand African Trade Law. Please ensure your LinkedIn profiles are updated.")
+        st.caption("💬 5 Comments | ❤️ 12 Likes")
+
+    # --- TAB 2: AI PROFILE ANALYZER (Claude Style) ---
+    with tab2:
+        st.subheader("Data Analysis: Global Competitiveness")
+        f_choice = st.selectbox("Your Field", ["Medicine", "Engineering", "Law", "Tech", "Arts", "Business"])
+        bio_input = st.text_area("Paste your bio/resume summary here for analysis:", height=150)
+        
+        if st.button("Run AI Analysis"):
+            if bio_input:
+                st.balloons()
+                st.write("### Analysis Report")
+                st.progress(75)
+                st.write("✅ **Strengths:** Your practical experience is excellent.")
+                st.write("⚠️ **Warning:** You need to mention more 'Global Standards' (e.g., ISO for Engineering or WHO for Medicine).")
+                st.write("💡 **International Tip:** Experts in the West look for 'Systemic Thinking'—show how your project scales.")
+            else:
+                st.error("Please enter your bio first.")
+
+    # --- TAB 3: SCHOLARSHIPS & CONNECTIONS ---
+    with tab3:
+        st.subheader("Global Opportunities")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.write("🏆 **Mastercard Foundation**")
+            st.write("Focus: Leadership and Tech.")
+            st.markdown("[Visit Website](https://mastercardfdn.org/)")
+            
+        with col2:
+            st.write("🏆 **Chevening Scholarship**")
+            st.write("Focus: Law, Politics, and Business.")
+            st.markdown("[Visit Website](https://www.chevening.org/)")
+
+if __name__ == "__main__":
+    main()
