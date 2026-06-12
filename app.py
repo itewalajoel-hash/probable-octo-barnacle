@@ -9,56 +9,174 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #1C1410 !important;
+}
+
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding: 0 !important; max-width: 780px !important; margin: 0 auto; }
+
+.block-container {
+    padding: 0 !important;
+    max-width: 760px !important;
+    margin: 0 auto;
+    background: #1C1410;
+}
+
+/* ── Top bar ── */
 .topbar {
     position: sticky; top: 0; z-index: 100;
-    background: #fff; border-bottom: 1px solid #EBEBEB;
-    padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+    background: #231A12;
+    border-bottom: 1px solid #3D2B1A;
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 14px;
 }
 .topbar-avatar {
-    width: 36px; height: 36px; background: #0F6E56; border-radius: 50%;
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #C4622D, #8B3A1A);
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 18px; flex-shrink: 0;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(196,98,45,0.35);
 }
-.topbar-name { font-weight: 600; font-size: 15px; color: #111; }
-.topbar-sub { font-size: 12px; color: #8A8A8A; }
-.topbar-dot { width: 8px; height: 8px; background: #22C55E; border-radius: 50%; display: inline-block; margin-right: 4px; }
-.chat-wrap { padding: 24px 24px 0; }
-.msg-row { display: flex; gap: 10px; margin-bottom: 18px; align-items: flex-start; }
+.topbar-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600; font-size: 17px;
+    color: #F5E6C8;
+    letter-spacing: 0.2px;
+}
+.topbar-sub { font-size: 12px; color: #8A7560; margin-top: 1px; }
+.topbar-dot {
+    width: 7px; height: 7px;
+    background: #7CB87A;
+    border-radius: 50%;
+    display: inline-block; margin-right: 5px;
+}
+
+/* ── Chat area ── */
+.chat-wrap { padding: 28px 24px 0; }
+
+.msg-row {
+    display: flex; gap: 10px;
+    margin-bottom: 20px; align-items: flex-start;
+}
 .msg-row.user { flex-direction: row-reverse; }
+
 .msg-avatar {
-    width: 32px; height: 32px; border-radius: 50%;
+    width: 34px; height: 34px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 15px; flex-shrink: 0; margin-top: 2px;
+    font-size: 16px; flex-shrink: 0; margin-top: 2px;
 }
-.msg-avatar.amani { background: #0F6E56; color: white; }
-.msg-avatar.user { background: #F0F0F0; color: #333; }
+.msg-avatar.amani {
+    background: linear-gradient(135deg, #C4622D, #8B3A1A);
+    box-shadow: 0 2px 6px rgba(196,98,45,0.3);
+}
+.msg-avatar.user { background: #2E2018; border: 1px solid #3D2B1A; }
+
 .bubble {
-    max-width: 82%; padding: 12px 16px; border-radius: 16px;
-    font-size: 14.5px; line-height: 1.65; color: #1A1A1A;
+    max-width: 80%; padding: 13px 17px;
+    border-radius: 18px; font-size: 14.5px;
+    line-height: 1.7; 
 }
-.bubble.amani { background: #F7F7F5; border-top-left-radius: 4px; }
-.bubble.user { background: #0F6E56; color: white; border-top-right-radius: 4px; }
-.input-area {
-    position: sticky; bottom: 0; background: white;
-    border-top: 1px solid #EBEBEB; padding: 14px 24px 20px; margin-top: 16px;
+.bubble.amani {
+    background: #2A1E13;
+    border: 1px solid #3D2B1A;
+    color: #E8D5B5;
+    border-top-left-radius: 4px;
 }
+.bubble.user {
+    background: linear-gradient(135deg, #C4622D, #A04E24);
+    color: #FDF3E3;
+    border-top-right-radius: 4px;
+    box-shadow: 0 2px 10px rgba(196,98,45,0.25);
+}
+
+/* bold inside bubbles */
+.bubble strong { color: #E8A87C; }
+.bubble.user strong { color: #FDF3E3; }
+
+/* ── Suggestion pills ── */
+.pills-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 4px 24px 16px;
+}
+
+/* ── Input area ── */
+.input-wrap {
+    position: sticky; bottom: 0;
+    background: #1C1410;
+    border-top: 1px solid #3D2B1A;
+    padding: 14px 24px 22px;
+    margin-top: 12px;
+}
+
 .stTextArea textarea {
-    border: 1.5px solid #D1D5DB !important; border-radius: 12px !important;
-    font-size: 14px !important; resize: none !important;
-    padding: 12px 14px !important; min-height: 52px !important;
+    background: #2A1E13 !important;
+    border: 1.5px solid #3D2B1A !important;
+    border-radius: 14px !important;
+    color: #E8D5B5 !important;
+    font-size: 14px !important;
+    font-family: 'Inter', sans-serif !important;
+    resize: none !important;
+    padding: 13px 16px !important;
+    min-height: 52px !important;
+    caret-color: #C4622D !important;
 }
-.stTextArea textarea:focus { border-color: #0F6E56 !important; }
+.stTextArea textarea::placeholder { color: #5C4A35 !important; }
+.stTextArea textarea:focus {
+    border-color: #C4622D !important;
+    box-shadow: 0 0 0 3px rgba(196,98,45,0.15) !important;
+    outline: none !important;
+}
+
+/* Send button */
 .stButton > button {
-    background: #0F6E56 !important; color: white !important;
-    border: none !important; border-radius: 10px !important;
-    font-size: 20px !important; height: 52px !important; width: 52px !important;
+    background: linear-gradient(135deg, #C4622D, #A04E24) !important;
+    color: #FDF3E3 !important;
+    border: none !important;
+    border-radius: 12px !important;
+    height: 52px !important;
+    width: 52px !important;
+    font-size: 22px !important;
     padding: 0 !important;
+    box-shadow: 0 2px 10px rgba(196,98,45,0.3) !important;
+    transition: all 0.2s !important;
 }
-.stButton > button:hover { background: #0A5240 !important; }
+.stButton > button:hover {
+    background: linear-gradient(135deg, #D4723D, #B05E34) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 14px rgba(196,98,45,0.4) !important;
+}
+
+/* Pill buttons override — only for suggestion row */
+div[data-testid="stHorizontalBlock"] .stButton > button {
+    background: #2A1E13 !important;
+    color: #C4622D !important;
+    border: 1px solid #3D2B1A !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    height: auto !important;
+    width: auto !important;
+    padding: 6px 16px !important;
+    box-shadow: none !important;
+    transition: all 0.15s !important;
+}
+div[data-testid="stHorizontalBlock"] .stButton > button:hover {
+    background: #3D2B1A !important;
+    border-color: #C4622D !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.stSpinner > div { display: none !important; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #1C1410; }
+::-webkit-scrollbar-thumb { background: #3D2B1A; border-radius: 10px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -71,6 +189,7 @@ Your expertise:
 - Writing LinkedIn messages, cold emails, personal statements
 - Building an outstanding profile through projects, volunteering, online presence
 - Uganda specifics: Innovation Village Kampala, Hive Colab, Makerere University, UCU (Uganda Christian University), UIRI
+- Mechatronics and Robotics: relevant for students pursuing embedded systems, drones, autonomous systems, aerospace
 
 Tone:
 - Talk like a smart encouraging older sibling, not a textbook
@@ -78,14 +197,14 @@ Tone:
 - Short paragraphs, use bold for key terms
 - When given a bio, score it and give clear next steps
 - Never say "Great question!" or use hollow filler phrases
-- Networking scripts must sound human, not templated
+- Networking scripts must sound human and specific, not templated
 - Respond in markdown"""
 
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "Hi! I am **Amani**, your African student mentor. 🌍\n\nI can help you find scholarships, build your profile, write LinkedIn messages to professors, or answer any questions about your career path.\n\nWhat is on your mind?"
+            "content": "Habari! I am **Amani** — your African student mentor. 🌍\n\nI can help you find scholarships, sharpen your profile, write outreach messages to professors, or map out your next move in Engineering, Medicine, Law, Tech, or any other field.\n\nWhat are you working on?"
         }
     ]
 
@@ -100,7 +219,7 @@ def call_amani(messages):
         except Exception:
             api_key = os.environ.get("ANTHROPIC_API_KEY", "")
         if not api_key:
-            return "Add your ANTHROPIC_API_KEY to Streamlit secrets to activate Amani."
+            return "Add your **ANTHROPIC_API_KEY** to Streamlit secrets to activate me."
         client = anthropic.Anthropic(api_key=api_key)
         history = [{"role": m["role"], "content": m["content"]} for m in messages]
         response = client.messages.create(
@@ -111,20 +230,22 @@ def call_amani(messages):
         )
         return response.content[0].text
     except ImportError:
-        return "The anthropic package is not installed. Check your requirements.txt."
+        return "The `anthropic` package is not installed. Check your requirements.txt."
     except Exception as e:
         return f"Error: {str(e)}"
 
+# ── TOP BAR ──
 st.markdown("""
 <div class="topbar">
   <div class="topbar-avatar">🌍</div>
   <div>
     <div class="topbar-name">Amani</div>
-    <div class="topbar-sub"><span class="topbar-dot"></span>African Student Mentor</div>
+    <div class="topbar-sub"><span class="topbar-dot"></span>African Student Mentor · Always here</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
 
+# ── MESSAGES ──
 st.markdown('<div class="chat-wrap">', unsafe_allow_html=True)
 for msg in st.session_state.messages:
     role = msg["role"]
@@ -139,11 +260,12 @@ for msg in st.session_state.messages:
     """, unsafe_allow_html=True)
 st.markdown('</div>', unsafe_allow_html=True)
 
+# ── SUGGESTION PILLS ──
 SUGGESTIONS = [
     "Find me a scholarship",
     "Analyze my profile",
-    "Write a LinkedIn message to a professor",
-    "What hubs are near me?",
+    "Write a message to a professor",
+    "Hubs near me",
 ]
 
 if len(st.session_state.messages) == 1:
@@ -154,7 +276,8 @@ if len(st.session_state.messages) == 1:
                 st.session_state.pending = suggestion
                 st.rerun()
 
-st.markdown('<div class="input-area">', unsafe_allow_html=True)
+# ── INPUT BAR ──
+st.markdown('<div class="input-wrap">', unsafe_allow_html=True)
 input_col, btn_col = st.columns([10, 1])
 with input_col:
     user_input = st.text_area(
@@ -168,6 +291,7 @@ with btn_col:
     send = st.button("↑", key="send_btn")
 st.markdown('</div>', unsafe_allow_html=True)
 
+# ── HANDLE SEND ──
 message_to_send = None
 if send and user_input.strip():
     message_to_send = user_input.strip()
@@ -177,7 +301,7 @@ elif st.session_state.pending:
 
 if message_to_send:
     st.session_state.messages.append({"role": "user", "content": message_to_send})
-    with st.spinner("Amani is thinking..."):
+    with st.spinner(""):
         reply = call_amani(st.session_state.messages)
     st.session_state.messages.append({"role": "assistant", "content": reply})
     st.rerun()
